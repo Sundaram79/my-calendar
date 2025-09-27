@@ -40,7 +40,7 @@ export default function App() {
    };
 
    return (
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
          <div className="min-h-screen bg-background text-foreground">
             {/* Topbar will now use shadcn's dark mode via useTheme */}
             <Topbar />
