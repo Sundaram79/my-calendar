@@ -32,9 +32,9 @@ function Index() {
    };
 
    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+      <div className="flex justify-center items-center min-h-screen bg-background p-4">
          <Card className="w-full max-w-md">
-         <h1 className="text-center">My Calendar</h1>
+            <h1 className="text-center">My Calendar</h1>
             <CardHeader className="text-center">
                <CardTitle className="text-2xl font-bold">User Login</CardTitle>
                <CardDescription>Enter your credentials to access your account</CardDescription>

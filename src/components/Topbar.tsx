@@ -7,6 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sun, Moon, Laptop } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { usePathname } from "@/hooks/usePathname";
 
 export default function Topbar() {
    const { theme, setTheme } = useTheme();
@@ -15,7 +17,15 @@ export default function Topbar() {
         if (theme === "light") return <Sun className="h-5 w-5" />;
         if (theme === "dark") return <Moon className="h-5 w-5" />;
         return <Laptop className="h-5 w-5" />;
-     };
+   };
+   const navigate = useNavigate();
+
+   const handleLogout = () => {
+      // navigate back to the root/login page
+      navigate({ to: "/" });
+   }
+
+  const pathname = usePathname();
 
    return (
       <header className="bg-background border-b">
@@ -49,22 +59,24 @@ export default function Topbar() {
                   </DropdownMenuContent>
                </DropdownMenu>
                <Separator orientation="vertical" className="h-6" />
-               {/* Profile Dropdown */}
-               <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                     <Button variant="ghost" size="icon">
-                        <Avatar className="w-8 h-8">
-                           <AvatarImage src="https://github.com/shadcn.png" />
-                           <AvatarFallback>SC</AvatarFallback>
-                        </Avatar>
-                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                     <DropdownMenuItem>Profile</DropdownMenuItem>
-                     <DropdownMenuItem>Settings</DropdownMenuItem>
-                     <DropdownMenuItem>Logout</DropdownMenuItem>
-                  </DropdownMenuContent>
-               </DropdownMenu>
+               {/* Profile Dropdown - only show on /calendar */}
+               {pathname === "/calendar" && (
+                  <DropdownMenu>
+                     <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                           <Avatar className="w-8 h-8">
+                              <AvatarImage src="https://github.com/shadcn.png" />
+                              <AvatarFallback>SC</AvatarFallback>
+                           </Avatar>
+                        </Button>
+                     </DropdownMenuTrigger>
+                     <DropdownMenuContent align="end">
+                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                        <DropdownMenuItem>Settings</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+                     </DropdownMenuContent>
+                  </DropdownMenu>
+               )}
             </div>
          </div>
       </header>
